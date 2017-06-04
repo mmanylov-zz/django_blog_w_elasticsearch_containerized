@@ -1,7 +1,13 @@
-<h1>{{ post.title }}</h1>
-<pre>
-    {{ post.text }}
-</pre>
-<br>
+{% extends 'base.html' %}
+{% block content %}
+    
+    <h1>{{ post.title }}</h1>
+    <hr>
+    <p><span class="glyphicon glyphicon-time"></span> Posted on {{ post.puplished_at|date }}
+        at {{ post.published_at|time }}</p>
+    <hr>
+    <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+    <hr>
+    <p>{{ post.text }}</p>
 
-<a href="{% url 'post:index' %}">назад</a>
+{% endblock %}

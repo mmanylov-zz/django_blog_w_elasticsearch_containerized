@@ -1,9 +1,23 @@
-{% if posts %}
-    <ul>
+{% extends 'base.html' %}
+{% block content %}
+
     {% for post in posts %}
-        <li><a href="{% url 'post:post' post.id %}">{{ post.title }}</a></li>
+
+        <h2>
+            <a href="{% url 'post:post' post.id %}">{{ post.title }}</a>
+        </h2>
+        <p><span class="glyphicon glyphicon-time"></span> Posted on {{ post.puplished_at|date:'M d,Y' }} at {{ post.published_at|time }}</p>
+        <hr>
+        <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+        <hr>
+        <p>{{ post.text|truncatewords_html:15 }}</p>
+        <a class="btn btn-primary" href="{% url 'post:post' post.id %}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+        <hr>
+
+
+    {% empty %}
+        <p>No posts are available.</p>
     {% endfor %}
-    </ul>
-{% else %}
-    <p>No posts are available.</p>
-{% endif %}
+
+{% endblock %}
