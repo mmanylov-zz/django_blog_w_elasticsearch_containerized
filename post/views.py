@@ -29,3 +29,11 @@ class PostView(View):
     def get(self, request, post_id):
         post = get_object_or_404(Post, pk=post_id)
         return render(request, 'post/post.html', {'post': post})
+
+class AboutView(View):
+    def get(self, request):
+        return render(request, 'post/about.html')
+
+class ContactsView(View):
+    def get(self, request):
+        return render(request, 'post/contacts.html')
