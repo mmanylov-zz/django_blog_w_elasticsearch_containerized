@@ -4,7 +4,7 @@
     {% for post in posts %}
 
         <h2>
-            <a href="{% url 'post:post' post.id %}">{{ post.title }}</a>
+            <a href="{% url 'post:post' post.slug %}">{{ post.title }}</a>
         </h2>
         <p><span class="glyphicon glyphicon-time"></span> Posted on {{ post.puplished_at|date:'M d,Y' }}
             at {{ post.published_at|time }}</p>
@@ -12,7 +12,7 @@
         <img class="img-responsive" src="http://placehold.it/900x300" alt="">
         <hr>
         <p>{{ post.text|truncatewords_html:15 }}</p>
-        <a class="btn btn-primary" href="{% url 'post:post' post.id %}">Read More <span
+        <a class="btn btn-primary" href="{% url 'post:post' post.slug %}">Read More <span
                 class="glyphicon glyphicon-chevron-right"></span></a>
 
         <hr>
@@ -26,8 +26,6 @@
 
 {% block pager %}
 <ul class="pager">
-
-
 
         {% if posts.has_previous %}
             <li><a class="prev" href="?page={{ posts.previous_page_number }}">Previous</a></li>

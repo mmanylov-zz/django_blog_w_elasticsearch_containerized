@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^index/$', IndexView.as_view()),
     url(r'^about/$', AboutView.as_view()),
     url(r'^contacts/$', ContactsView.as_view()),
-    url(r'^post/(?P<post_id>\d+)/$', PostView.as_view(), name='post'),
+    url(r'^post/(?P<slug>\w+).html/$', PostView.as_view(), name='post'),
 ]

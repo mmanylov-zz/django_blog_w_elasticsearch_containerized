@@ -1,0 +1,128 @@
+#layout {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    color: white;
+    #sidebar {
+        flex: 1 1 15%;
+        display: block;
+        padding: 2rem;
+        background-color: #48687F;
+        .sidebar-info {
+            h1 {
+                // font-family: 'Sedgwick Ave Display', cursive;
+                // font-family: 'Almendra SC', serif;
+                font-family: 'Cinzel', serif;
+            }
+        }
+        .sidebar-logos {
+            visibility: hidden;
+            &-logo {
+                max-width: 49%;
+                display: inline-block;
+                text-align: center;
+                border: none;
+                img {
+                    display: inline-block;
+                    margin: .5em auto 0 auto;
+                    border: none;
+                    max-height: 75px;
+                    max-width: 180px;
+                }
+            }
+        }
+    }
+    #content {
+        display: block;
+        flex: 1 1 85%;
+        overflow: auto;
+    }
+    @media (max-width: 992px) {
+        .sidebar-logos {
+            display: none;
+        }
+        flex-flow: column nowrap;
+        #content {
+            flex: 1 0 auto;
+        }
+        #sidebar {
+            flex: 1 1 5%;
+        }
+    }
+}
+.post-link, .sidebar-info a {
+    &,
+    &:active,
+    &:focus,
+    &:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+.post {
+    @include card(1);
+    border-radius: 2px;
+    background-color: white;
+    color: #222;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-flow: row nowrap;
+    @media (max-width: 992px) {
+        flex-flow: column nowrap;
+    }
+
+    &-image {
+        flex: 1 1 40%;
+    }
+    &-info {
+        flex: 1 1 60%;
+        padding: 1rem;
+    }
+    &-meta {
+        color: fade-out(black, .4);
+        &>span {
+            margin-right: 1rem;
+        }
+    }
+}
+
+.page-index {
+    padding: 2rem;
+    @media (max-width: 992px) {
+        padding: 0;
+    }
+}
+
+.page-post {
+    .post {
+        display: block;
+        margin-bottom: 0;
+        &-image {
+            display: block;
+        }
+        &-info {
+            display: block;
+        }
+        &-text  {
+            font-size: 1.3125rem;
+            margin-left: 1rem;
+            padding-top: 2rem;
+            width: 60%;
+            margin: auto;
+            @media (max-width: 992px) {
+                font-size: 1rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                width: auto;
+            }
+        }
+        &-tags {
+    
+            padding: 1rem;
+        }
+    }
+    .post-comments {
+        padding: 1rem;
+    }
+}

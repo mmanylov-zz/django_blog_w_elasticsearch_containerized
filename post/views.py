@@ -9,7 +9,7 @@ def index(request):
 
 class IndexView(View):
     def get(self, request):
-        posts = Post.objects.filter(is_published=True)
+        posts = Post.objects.published()
         paginator = Paginator(posts, 2)
         page = request.GET.get('page')
 
@@ -26,8 +26,8 @@ class IndexView(View):
 
 
 class PostView(View):
-    def get(self, request, post_id):
-        post = get_object_or_404(Post, pk=post_id)
+    def get(self, request, slug):
+        post = get_object_or_404(Post, slug=slug)
         return render(request, 'post/post.html', {'post': post})
 
 class AboutView(View):
