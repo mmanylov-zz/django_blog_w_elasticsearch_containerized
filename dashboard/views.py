@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views import View
-from .models import Post, ViewCount
+from post.models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def index(request):
@@ -22,30 +22,25 @@ class IndexView(View):
             # If page is out of range (e.g. 9999), deliver last page of results.
             posts = paginator.page(paginator.num_pages)
 
-        return render(request, 'post/index.html', {'posts': posts})
+        return render(request, 'dashboard/post/index.html', {'posts': posts})
 
 
 class PostView(View):
-
     def get(self, request, slug):
         post = get_object_or_404(Post, slug=slug)
-        
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[-1].strip()
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-        try:
-            ViewCount.objects.get(ip_address=ip, post=post)
-        except ViewCount.DoesNotExist:
-            ViewCount(post=post, ip_address=ip).save()
+        return render(request, 'dashboard/post/view.html', {'post': post})
 
-        return render(request, 'post/post.html', {'post': post})
+class PostEdit(View):
+    def get(self, request, slug):
+        post = get_object_or_404(Post, slug=slug)
+        return render(request, 'dashboard/post/edit.html', {'post': post})
 
-class AboutView(View):
+class PostDelete(View):
+    def get(self, request, slug):
+        post = get_object_or_404(Post, slug=slug)
+        return render(request, 'dashboard/post/delete.html', {'post': post})
+
+class PostCreate(View):
     def get(self, request):
-        return render(request, 'post/about.html')
-
-class ContactsView(View):
-    def get(self, request):
-        return render(request, 'post/contacts.html')
+        post = Post()
+        return render(request, 'dashboard/post/create.html', {'post': post})

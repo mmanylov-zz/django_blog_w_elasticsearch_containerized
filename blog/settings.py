@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['blog']
 
 INSTALLED_APPS = [
     'post',
+    'dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -110,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = 'Europe-Moscow'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 

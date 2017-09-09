@@ -33,7 +33,9 @@
   <div id="layout">
     <header id="sidebar">
       <div class="sidebar-info">
-        <a href="/"><h1>Maksim Manylow</h1></a>
+        <a href="/">
+          <h1>Maksim Manylow</h1>
+        </a>
       </div>
       <div class="sidebar-logos">
         <a href="https://www.npmjs.com/" class="sidebar-logos-logo">
@@ -58,9 +60,9 @@
     <section id="content" class="page-post">
       <article class="post">
         <div class="post-info">
-          <h1 class="post-title">HOW TO: обновить все npm пакеты за раз</h1>
+          <h1 class="post-title">HOW TO: update all npm packeges in your project at once</h1>
           <div class="post-meta">
-            <span class="post-meta-date">Янв 30, 2016</span>
+            <span class="post-meta-date">Jan 30, 2016</span>
             <span class="post-meta-time-to-read">на 15 мин</span>
             <span class="post-meta-views"><i class="lnr lnr-eye"></i> 3</span>
           </div>
@@ -72,22 +74,31 @@
           </svg>
         </div>
         <div class="post-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ex iaculis, laoreet neque sit amet, accumsan dolor. Maecenas facilisis mi elit, in suscipit felis rhoncus id. Cras id ultricies ex, in commodo est. Nunc tempor ipsum vel leo iaculis, quis vehicula nulla egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent consectetur, mi quis congue fermentum, urna tellus aliquet justo, ac elementum nisi ligula in dolor. Nulla quis est et nibh egestas aliquam et at nulla. Integer condimentum rutrum libero non consectetur. Fusce id blandit ante. Curabitur tristique elementum vulputate.
-          
-          Curabitur sagittis lobortis libero, in posuere magna. Ut malesuada id ligula ut dignissim. Nullam ultrices ipsum sed justo convallis consectetur. Morbi semper, libero quis semper tempor, tortor urna tincidunt urna, in bibendum nisi risus at odio. Vestibulum ac elit condimentum, vestibulum ipsum vel, euismod ex. Duis nulla magna, vulputate in consequat ac, eleifend ut lectus. Nullam a metus neque. Praesent libero erat, volutpat eget nisi quis, semper rhoncus justo. Nunc euismod massa non magna mollis, ac accumsan eros posuere. Curabitur varius finibus nibh nec hendrerit. Sed sollicitudin ullamcorper libero, in rutrum ex venenatis nec. Aliquam et felis sodales, tincidunt mauris elementum, pharetra enim. Nunc nisi urna, sagittis a scelerisque id, facilisis a magna. Curabitur fringilla, lectus sagittis facilisis semper, nibh sapien interdum dolor, nec viverra dolor arcu sed metus.
-          
-          Nam a tempus lorem. Vestibulum aliquam varius magna, in mattis neque laoreet vel. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec id arcu nec lorem condimentum euismod non non urna. Curabitur gravida, odio sit amet ultrices interdum, augue elit sodales erat, a lacinia nunc sapien ac est. Nulla eget lacus magna. Etiam bibendum imperdiet odio sed gravida. Duis vestibulum nisl eu mauris hendrerit, quis consequat nunc auctor. Quisque a ullamcorper diam. Quisque augue nunc, blandit eget interdum dapibus, elementum id purus. Donec egestas enim a lacus faucibus auctor.
-          
-          Donec consequat dictum fermentum. Phasellus lacinia laoreet felis, vitae facilisis sapien cursus in. Donec vulputate tincidunt ante id vestibulum. Donec id ullamcorper libero. Etiam vel lectus ac ex pharetra tincidunt a at arcu. Suspendisse bibendum ex eu mi efficitur, sed dapibus risus finibus. Aliquam vitae sagittis odio. Proin posuere, ipsum at fermentum posuere, erat justo pharetra libero, ut elementum elit augue eget dolor. Etiam justo dolor, rutrum commodo porttitor non, tristique eget massa. Duis fringilla enim metus, sit amet hendrerit leo sagittis vitae. Curabitur porttitor lectus eu tristique cursus. Nulla porttitor, velit a ultricies mattis, nisl ligula rutrum lectus, et venenatis dolor mi malesuada justo.
-          
-          Vivamus hendrerit, tellus et dapibus porta, lectus risus lacinia nunc, consectetur ornare enim ante a elit. Curabitur ut sem elementum, dictum felis eu, placerat tortor. Nunc luctus aliquam justo, et lacinia lacus scelerisque ut. Etiam mattis mattis porta. Nunc luctus odio a neque pellentesque sollicitudin. Praesent laoreet sem a orci rutrum sodales. Nulla ex metus, aliquet ac molestie ac, aliquet et ante. In condimentum est vel massa varius tincidunt sed non nisl. Proin quam erat, imperdiet vel justo ac, consectetur sagittis sapien. Praesent rhoncus eleifend egestas.
+          <p> Is there a quick and easy out-of-the-box way to update all of the npm packages in your project? Yes. Does it quite
+            work as you expect? Not always. For those in camp TL;DR, if you really want to take a risk and update all your
+            packages to their latest version at once with relative ease, write a quick node script(source below) to rewrite
+            all the versions listed in package.json and then run it as part of an npm script.</p>
+
+          <h3>How can I check to see which packages are out of date?</h3>
+          <pre><code>npm outdated</code></pre>
+          <p>The outdated command will list any packages that are lower than the latest available release.</p>
+            <h3>Is there not an npm command to upgrade these?</h3>
+            <pre><code>npm update --save/--save-dev</code></pre>
+            <p>Yes. That is it. It will only update packages so far though. The “update” function respects semver. For example, if I have a package which is at version 1.3.5, but the latest version is 3.0.5, the package would only update to the highest version of 1 major, 1.9.9 for instance if that was the highest version prior to 2.0.0.
+              There is reason for this. It makes sense. The idea being that you want to avoid updating to packages that may break your project/cause conflicts. Restricting the power of npm update promotes having to manually update all of your dependencies in the package.json file. Doing so one by one methodically will make it easier to spot the culprit if things stop working.</p>
         </div>
         <div class="post-tags"><span class="post-tags-tag">tag1</span><span class="post-tags-tag">tag2</span></div>
       </article>
       <div class="post-comments bg-dark">
         <h2>Comments</h2>
-        Donec consequat dictum fermentum. Phasellus lacinia laoreet felis, vitae facilisis sapien cursus in. Donec vulputate tincidunt ante id vestibulum. Donec id ullamcorper libero. Etiam vel lectus ac ex pharetra tincidunt a at arcu. Suspendisse bibendum ex eu mi efficitur, sed dapibus risus finibus. Aliquam vitae sagittis odio. Proin posuere, ipsum at fermentum posuere, erat justo pharetra libero, ut elementum elit augue eget dolor. Etiam justo dolor, rutrum commodo porttitor non, tristique eget massa. Duis fringilla enim metus, sit amet hendrerit leo sagittis vitae. Curabitur porttitor lectus eu tristique cursus. Nulla porttitor, velit a ultricies mattis, nisl ligula rutrum lectus, et venenatis dolor mi malesuada justo.
-        
+        Donec consequat dictum fermentum. Phasellus lacinia laoreet felis, vitae facilisis sapien cursus in. Donec vulputate tincidunt
+        ante id vestibulum. Donec id ullamcorper libero. Etiam vel lectus ac ex pharetra tincidunt a at arcu. Suspendisse
+        bibendum ex eu mi efficitur, sed dapibus risus finibus. Aliquam vitae sagittis odio. Proin posuere, ipsum at fermentum
+        posuere, erat justo pharetra libero, ut elementum elit augue eget dolor. Etiam justo dolor, rutrum commodo porttitor
+        non, tristique eget massa. Duis fringilla enim metus, sit amet hendrerit leo sagittis vitae. Curabitur porttitor
+        lectus eu tristique cursus. Nulla porttitor, velit a ultricies mattis, nisl ligula rutrum lectus, et venenatis dolor
+        mi malesuada justo.
+
       </div>
     </section>
   </div>

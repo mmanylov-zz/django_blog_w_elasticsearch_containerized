@@ -9,14 +9,16 @@
     {% for post in posts %}
 
         <h2>
-            <a href="{% url 'post:post' post.slug %}">{{ post.title }}</a>
+            <a href="{% url 'dashboard:post-view' post.slug %}">{{ post.title }}</a>
         </h2>
         <p><span class="glyphicon glyphicon-time"></span> Опубликовано {{ post.published_at|date:"d-m-Y" }}
             в {{ post.published_at|time }}</p>
 
         <p>{{ post.body|truncatewords_html:15 }}</p>
-        <a class="btn btn-primary" href="{% url 'post:post' post.slug %}">Подробнее <span
+        <a class="btn btn-primary" href="{% url 'dashboard:post-view' post.slug %}">Подробнее <span
                 class="glyphicon glyphicon-chevron-right"></span></a>
+        <a class="btn btn-default" href="{% url 'dashboard:post-edit' post.slug %}">Редактировать</a>
+        <a class="btn btn-default" href="{% url 'dashboard:post-delete' post.slug %}">Удалить</a>
 
         <hr>
 
