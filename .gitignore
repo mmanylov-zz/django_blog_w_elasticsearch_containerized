@@ -16,3 +16,5 @@ build/
 tests/report/
 .idea/
 frontend/.git
+node_modules
+bower_components

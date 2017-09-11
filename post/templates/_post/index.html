@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block stylesheets %}
+    {{ block.super }}
+    <link href="{% static 'post/css/blog-home.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+
+    {% for post in posts %}
+
+        <h2>
+            <a href="{% url 'post:post' post.slug %}">{{ post.title }}</a>
+        </h2>
+        <p><span class="glyphicon glyphicon-time"></span> Опубликовано {{ post.published_at|date:"d-m-Y" }}
+            в {{ post.published_at|time }}</p>
+
+        <p>{{ post.body|truncatewords_html:15 }}</p>
+        <a class="btn btn-primary" href="{% url 'post:post' post.slug %}">Подробнее <span
+                class="glyphicon glyphicon-chevron-right"></span></a>
+
+        <hr>
+
+
+    {% empty %}
+        <p>Здесь еще ничего нет, попрубуйте зайти позже.</p>
+    {% endfor %}
+
+{% endblock %}
+
+{% block pager %}
+<ul class="pager">
+
+        {% if posts.has_previous %}
+            <li><a class="prev" href="?page={{ posts.previous_page_number }}">Назад</a></li>
+        {% endif %}
+
+        <li class="active">
+            <span>Страница {{ posts.number }} из {{ posts.paginator.num_pages }}</span>
+        </li>
+
+        {% if posts.has_next %}
+            <li><a class="next" href="?page={{ posts.next_page_number }}">Вперед</a></li>
+        {% endif %}
+
+</ul>
+{% endblock %}

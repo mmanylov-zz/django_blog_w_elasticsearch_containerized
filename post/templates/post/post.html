@@ -1,22 +1,37 @@
 {% extends 'base.html' %}
-{% load static %}
-{% block stylesheets %}
-    {{ block.super }}
-    <link href="{% static 'post/css/blog-post.css' %}" rel="stylesheet">
-{% endblock %}
 {% block content %}
-    <h1 class="">
-        {{ post.title }}
 
-    </h1>
-    <div class="post-meta">
-        <div class="post-date">
-            Опубликовано {{ post.published_at|date:"M, d Y" }}
-        </div>
-        <div class="post-pageviews"></div>
-        <div class="post-tags"></div>
+<section id="content" class="page-post">
+
+  <article class="post">
+    <div class="post-info">
+      <h1 class="post-title">{{ post.title }}</h1>
+      <div class="post-meta">
+        <span class="post-meta-date">{{ post.published_at|date:"M, d Y" }}</span>
+        <span class="post-meta-time-to-read">{{post.minutes_to_read}} mins</span>
+        <span class="post-meta-views"><i class="lnr lnr-eye"></i>{{ post.views }}</span>
+      </div>
     </div>
+    <div class="post-image">
+      <svg viewBox="0 0 18 7">
+        <path fill="#CB3837" d="M0,0v6h5v1h4v-1h9v-6"></path>
+        <path fill="#FFF" d="M1,1v4h2v-3h1v3h1v-4h1v5h2v-4h1v2h-1v1h2v-4h1v4h2v-3h1v3h1v-3h1v3h1v-4"></path>
+      </svg>
+    </div>
+    <div class="post-text">
+      {{ post.body|safe }}
+      <div class="post-tags"><a href="#" class="post-tags-tag">tag1</a><a href="#" class="post-tags-tag">tag2</a></div>
+    </div>
+  </article>
+  <div class="post-comments bg-dark">
+    <h2>Comments</h2>
+    Donec consequat dictum fermentum. Phasellus lacinia laoreet felis, vitae facilisis sapien cursus in. Donec vulputate tincidunt
+    ante id vestibulum. Donec id ullamcorper libero. Etiam vel lectus ac ex pharetra tincidunt a at arcu. Suspendisse bibendum
+    ex eu mi efficitur, sed dapibus risus finibus. Aliquam vitae sagittis odio. Proin posuere, ipsum at fermentum posuere,
+    erat justo pharetra libero, ut elementum elit augue eget dolor. Etiam justo dolor, rutrum commodo porttitor non, tristique
+    eget massa. Duis fringilla enim metus, sit amet hendrerit leo sagittis vitae. Curabitur porttitor lectus eu tristique
+    cursus. Nulla porttitor, velit a ultricies mattis, nisl ligula rutrum lectus, et venenatis dolor mi malesuada justo.
 
-    <p>{{ post.body|safe }}</p>
-
+  </div>
+</section>
 {% endblock %}

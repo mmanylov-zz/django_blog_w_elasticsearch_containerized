@@ -15,15 +15,20 @@ class Post(models.Model):
     )
     title = models.CharField("Название", max_length=255, unique=True)
     slug = models.SlugField("ЧПУ", max_length=255, unique=True)
+    excerpt = models.CharField("Выдержка", max_length=255)
     # minutes_to_read = models.IntegerField("ETA")
     body = models.TextField("Текст", blank=True)
     markdown = models.TextField("Markdown")
+    minutes_to_read = models.IntegerField("Minutes to read")
     created_at = models.DateTimeField("Создано", auto_now_add=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
     published_at = models.DateTimeField("Опубликовано", default=timezone.now)
     status = models.CharField("Статус", max_length=10,
                               choices=STATUS_CHOICES,
                               default='draft')
+    @property
+    def views(self):
+        return ViewCount.objects.filter(post=self).count()
 
     objects = models.Manager()  # default manager
     published = PublishedManager()  # custom manager

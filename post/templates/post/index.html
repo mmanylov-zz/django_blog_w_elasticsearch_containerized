@@ -1,46 +1,48 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block stylesheets %}
-    {{ block.super }}
-    <link href="{% static 'post/css/blog-home.css' %}" rel="stylesheet">
-{% endblock %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
+<section id="content" class="bg-dark page-index">
 
-    {% for post in posts %}
+  {% for post in posts %}
 
-        <h2>
-            <a href="{% url 'post:post' post.slug %}">{{ post.title }}</a>
-        </h2>
-        <p><span class="glyphicon glyphicon-time"></span> Опубликовано {{ post.published_at|date:"d-m-Y" }}
-            в {{ post.published_at|time }}</p>
+  <a class="post-link" href="{% url 'post:post' post.slug %}">
+    <article class="post">
+      <div class="post-image">
+        <svg viewBox="0 0 18 7">
+          <path fill="#CB3837" d="M0,0v6h5v1h4v-1h9v-6"></path>
+          <path fill="#FFF" d="M1,1v4h2v-3h1v3h1v-4h1v5h2v-4h1v2h-1v1h2v-4h1v4h2v-3h1v3h1v-3h1v3h1v-4"></path>
+        </svg>
+      </div>
+      <div class="post-info">
+        <h2 class="post-title">{{ post.title }}</h2>
+        <div class="post-meta">
+          <span class="post-meta-date">{{ post.published_at|date:"M, d Y" }}</span>
+          <span class="post-meta-time-to-read">{{ post.minutes_to_read }} min read</span>
+          <span class="post-meta-views"><i class="lnr lnr-eye"></i>{{ post.views }}</span>
+        </div>
+        <div class="post-excerpt">{{ post.excerpt }}</div>
+        <div class="post-tags"></div>
+      </div>
+    </article>
+  </a>
 
-        <p>{{ post.body|truncatewords_html:15 }}</p>
-        <a class="btn btn-primary" href="{% url 'post:post' post.slug %}">Подробнее <span
-                class="glyphicon glyphicon-chevron-right"></span></a>
-
-        <hr>
-
-
-    {% empty %}
-        <p>Здесь еще ничего нет, попрубуйте зайти позже.</p>
-    {% endfor %}
-
-{% endblock %}
-
-{% block pager %}
-<ul class="pager">
-
-        {% if posts.has_previous %}
-            <li><a class="prev" href="?page={{ posts.previous_page_number }}">Назад</a></li>
-        {% endif %}
-
-        <li class="active">
-            <span>Страница {{ posts.number }} из {{ posts.paginator.num_pages }}</span>
-        </li>
-
-        {% if posts.has_next %}
-            <li><a class="next" href="?page={{ posts.next_page_number }}">Вперед</a></li>
-        {% endif %}
-
-</ul>
+  {% empty %}
+  <p>Nothing is published yet</p>
+  {% endfor %}
+  {% block pager %}
+  <ul class="pager">
+  
+    {% if posts.has_previous %}
+    <li><a class="prev" href="?page={{ posts.previous_page_number }}">back</a></li>
+    {% endif %}
+  
+    <li class="active">
+      <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+    </li>
+  
+    {% if posts.has_next %}
+    <li><a class="next" href="?page={{ posts.next_page_number }}">forth</a></li>
+    {% endif %}
+  
+  </ul>
+  {% endblock %}
+</section>
 {% endblock %}

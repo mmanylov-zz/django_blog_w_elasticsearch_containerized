@@ -101,28 +101,38 @@
         &-image {
             display: block;
         }
-        &-info {
+        &-info, &-text, &-comments {
             display: block;
-        }
-        &-text  {
-            font-size: 1.3125rem;
-            margin-left: 1rem;
-            padding-top: 2rem;
             width: 60%;
             margin: auto;
             @media (max-width: 992px) {
-                font-size: 1rem;
                 padding-left: 1rem;
                 padding-right: 1rem;
                 width: auto;
             }
         }
-        &-tags {
-    
-            padding: 1rem;
+        &-text  {
+            font-size: 1.3125rem;
+            padding-top: 2rem;
+            @media (max-width: 992px) {
+                font-size: 1rem;
+            }
         }
-    }
-    .post-comments {
-        padding: 1rem;
+        &-tags {
+            margin-bottom: 1rem;
+            &-tag{
+                font-size: .75rem;
+                padding: 0.5rem 1rem;
+                background: $background-dark;
+                margin-right: 1rem;
+                border-radius: 1rem;
+            }
+        }
+        &-comments {
+            padding: 1rem;
+            @media (max-width: 992px) {
+                font-size: 1rem;
+            }
+        }
     }
 }
