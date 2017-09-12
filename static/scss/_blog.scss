@@ -120,6 +120,10 @@
                 padding-right: 1rem;
                 width: auto;
             }
+
+            pre > code {
+                font-size: 1rem;
+            }
         }
         &-text {
             font-size: 1.3125rem;
