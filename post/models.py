@@ -15,7 +15,7 @@ class Post(models.Model):
     )
     title = models.CharField("Название", max_length=255, unique=True)
     slug = models.SlugField("ЧПУ", max_length=255, unique=True)
-    excerpt = models.CharField("Выдержка", max_length=255)
+    excerpt = models.TextField("Выдержка")
     # minutes_to_read = models.IntegerField("ETA")
     body = models.TextField("Текст", blank=True)
     markdown = models.TextField("Markdown")
