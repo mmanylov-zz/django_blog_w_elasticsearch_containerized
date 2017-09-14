@@ -1,0 +1,57 @@
+server {
+        listen 80;
+        listen [::]:80;
+        listen 443 ssl; 
+        listen [::]:443 ssl;
+        server_name www.maksimmanylow.com;
+        limit_conn perip 10; 
+        limit_conn perserver 100;
+        if ($http_user_agent ~* LWP::Simple|BBBike|wget|curl|msnbot|scrapbot) {
+                return 403;
+        }       
+        return 301 https://maksimmanylow.com$request_uri;
+}
+
+server {
+        listen 80;
+        listen [::]:80;
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        ssl_dhparam /etc/ssl/certs/dhparam.pem;
+	include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot	
+	ssl_certificate /etc/letsencrypt/live/maksimmanylow.com/fullchain.pem; # managed by Certbot
+	ssl_certificate_key /etc/letsencrypt/live/maksimmanylow.com/privkey.pem; # managed by Certbot
+	limit_conn perip 10; 
+        limit_conn perserver 100;
+        
+	server_name maksimmanylow.com;
+
+        # Redirect non-https traffic to https
+        if ($scheme != "https") {
+                return 301 https://$host$request_uri;
+        } # managed by Certbot
+
+	client_max_body_size 5M;
+        gzip on;
+        gzip_comp_level    5;
+        gzip_min_length    256;
+        gzip_proxied       any;
+        gzip_vary          on;
+
+        if ($http_user_agent ~* LWP::Simple|BBBike|wget|curl|msnbot|scrapbot) {
+                return 403;
+        }
+
+       
+	location /static/ {
+		root /var/www/blog;
+		try_files $uri =404;
+	}
+
+	location / {
+		include proxy_params;		
+		proxy_pass http://unix:/var/www/blog/blog.sock;
+	}	
+
+}
+
