@@ -27,7 +27,18 @@
   <link href="{% static 'vendor/prismjs/prism.css' %}" rel="stylesheet" />
   <!-- Custom styles for this template -->
   <link href="{% static 'css/main.min.css' %}" rel="stylesheet"> {% endblock %}
+  <!-- Global Site Tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106501805-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
+    function gtag() {
+      dataLayer.push(arguments)
+    };
+    gtag('js', new Date());
+
+    gtag('config', 'UA-106501805-1');
+  </script>
 </head>
 
 <body id="page-top">
@@ -43,20 +54,6 @@
     {% block content %} {% block pager %}{% endblock %} {% endblock %}
 
   </div>
-
-
-  <!-- Global Site Tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106501805-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments)
-    };
-    gtag('js', new Date());
-
-    gtag('config', 'UA-106501805-1');
-  </script>
 
   {% block javascript %}
   <!-- Bootstrap core JavaScript -->
