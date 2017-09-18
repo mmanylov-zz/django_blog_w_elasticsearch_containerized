@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}
-{{ post.title }} | Maksim Manylow
-{% endblock %}
+{% block title %}{{ post.title }} | Maksim Manylow{% endblock %}
+{% block description %}{{ post.excerpt }}{% endblock %}
 {% block content %}
 
 <main id="content" class="page-post">
