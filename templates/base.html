@@ -10,9 +10,7 @@
   <meta name="google-site-verification" content="ABWi-hNfrwHnhoisDBRZVbuASJ-TeFqaYZ-clZVzBqw" />
 
   <title>{% block title %}{% endblock %}</title>
-  <meta name="description" content="{% block description %}{% endblock %}">
-
-  {% block stylesheets %}
+  <meta name="description" content="{% block description %}{% endblock %}"> {% block stylesheets %}
   <!-- Bootstrap core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <!-- Custom fonts for this template -->
@@ -29,23 +27,28 @@
   <!-- Custom styles for this template -->
   <link href="{% static 'css/main.min.css' %}" rel="stylesheet"> {% endblock %}
 
-<!-- Global Site Tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-106501805-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments)};
-  gtag('js', new Date());
+  <!-- Global Site Tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106501805-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'UA-106501805-1');
-</script>
+    function gtag() {
+      dataLayer.push(arguments)
+    };
+    gtag('js', new Date());
+
+    gtag('config', 'UA-106501805-1');
+  </script>
 </head>
 
 <body id="page-top">
+
   <div id="layout">
     <header id="sidebar">
       <div class="sidebar-info">
         <a href="/">
           <h1>Maksim Manylow</h1>
+          <p>maksimmanylow@gmail.com</p>
         </a>
       </div>
     </header>
