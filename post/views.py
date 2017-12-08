@@ -10,7 +10,7 @@ def index(request):
 class IndexView(View):
     def get(self, request):
         posts = Post.published.all()
-        paginator = Paginator(posts, 2)
+        paginator = Paginator(posts, 3)
         page = request.GET.get('page')
 
         try:
