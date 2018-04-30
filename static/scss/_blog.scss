@@ -31,7 +31,7 @@
             }
         }
     }
-    #content {
+    #main {
         display: block;
         flex: 1 1 85%;
         overflow: auto;
@@ -41,7 +41,7 @@
             display: none;
         }
         flex-flow: column nowrap;
-        #content {
+        #main {
             flex: 1 0 auto;
         }
         #sidebar {
@@ -103,6 +103,7 @@
 }
 
 .page-post {
+    background: white;
     h2,
     h3,
     h4,
@@ -175,4 +176,19 @@ pre[class*="language-"] {
 code[class*="language-"],
 pre[class*="language-"] {
     font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+#search_bar {
+    margin: 1rem auto 0;
+    width: 80%;
+    input[type=text] {
+        width: 130px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
+    
+    /* When the input field gets focus, change its width to 100% */
+    input[type=text]:focus {
+        width: 100%;
+    }
 }

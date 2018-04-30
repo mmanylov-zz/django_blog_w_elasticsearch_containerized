@@ -4,77 +4,83 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="author" content="">
-  <meta name="google-site-verification" content="ABWi-hNfrwHnhoisDBRZVbuASJ-TeFqaYZ-clZVzBqw" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="">
+    <meta name="google-site-verification" content="ABWi-hNfrwHnhoisDBRZVbuASJ-TeFqaYZ-clZVzBqw" />
 
-  <title>{% block title %}{% endblock %}</title>
-  <meta name="description" content="{% block description %}{% endblock %}"> {% block stylesheets %}
-  <!-- Bootstrap core CSS -->
-  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-  <!-- Custom fonts for this template -->
-  <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-  <link href="{% static 'vendor/linearicons-free/style.css' %}" rel="stylesheet" type="text/css">
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave+Display" rel="stylesheet">
-  <!-- Plugin CSS -->
-  <link href="{% static 'vendor/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
-  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet" />
-  <link href="{% static 'vendor/prismjs/prism.css' %}" rel="stylesheet" />
-  <!-- Custom styles for this template -->
-  <link href="{% static 'css/main.min.css' %}" rel="stylesheet"> {% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}"> {% block stylesheets %}
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'vendor/linearicons-free/style.css' %}" rel="stylesheet" type="text/css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave+Display" rel="stylesheet">
+    <!-- Plugin CSS -->
+    <link href="{% static 'vendor/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet" />
+    <link href="{% static 'vendor/prismjs/prism.css' %}" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/main.min.css' %}" rel="stylesheet"> {% endblock %}
 
-  <!-- Global Site Tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106501805-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106501805-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-      dataLayer.push(arguments)
-    };
-    gtag('js', new Date());
+        function gtag() {
+            dataLayer.push(arguments)
+        };
+        gtag('js', new Date());
 
-    gtag('config', 'UA-106501805-1');
-  </script>
+        gtag('config', 'UA-106501805-1');
+    </script>
 </head>
 
 <body id="page-top">
 
-  <div id="layout">
-    <header id="sidebar">
-      <div class="sidebar-info">
-        <a href="/">
-          <div class="text-center">
-            <img src="{% static 'img/avatar.jpg' %}" class="rounded" style="max-width: 12rem; margin:  2rem 0;" alt="Maksim's face">
-            <h1>Maksim Manylow</h1>
-            <p>maksimmanylow@gmail.com</p>
-          </div>
-        </a>
-      </div>
-    </header>
+    <div id="layout">
+        <div id="sidebar">
+            <div class="sidebar-info">
+                <a href="/">
+                    <div class="text-center">
+                        <img src="{% static 'img/avatar.jpg' %}" class="rounded" style="max-width: 12rem; margin:  2rem 0;" alt="Maksim's face">
+                        <h1>Maksim Manylow</h1>
+                        <p>maksimmanylow@gmail.com</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div id="main" class="bg-dark">
+            <div id="search_bar">
+                <form class="form-inline mt-2 mt-md-0 search-form" action="/search">
+                    <input name="q" class="search-form-input form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                </form>
+            </div>
+            {% block content %} {% block pager %}{% endblock %} {% endblock %}
+        </div>
 
-    {% block content %} {% block pager %}{% endblock %} {% endblock %}
+    </div>
 
-  </div>
+    {% block javascript %}
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'vendor/scrollreveal/scrollreveal.min.js' %}"></script>
+    <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'vendor/prismjs/prism.js' %}"></script>
+    <!-- Custom scripts for this template -->
+    <script src="{% static 'js/main.min.js' %}"></script>
 
-  {% block javascript %}
-  <!-- Bootstrap core JavaScript -->
-  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-  <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
-  <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-  <!-- Plugin JavaScript -->
-  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-  <script src="{% static 'vendor/scrollreveal/scrollreveal.min.js' %}"></script>
-  <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
-  <script src="{% static 'vendor/aos/aos.js' %}"></script>
-  <script src="{% static 'vendor/prismjs/prism.js' %}"></script>
-  <!-- Custom scripts for this template -->
-  <script src="{% static 'js/main.min.js' %}"></script>
-
-  {% endblock %}
+    {% endblock %}
 </body>
 
 </html>

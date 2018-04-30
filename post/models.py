@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 import markdown 
-from .search import PostIndex
+#from .search import PostIndex
 
 
 class PublishedManager(models.Manager):
