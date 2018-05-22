@@ -115,13 +115,7 @@ gulp.task('images', () =>
   }))
 );
 
-
-// Default task
-gulp.task('default', ['sass', 'minify-css', 'minify-js', 'copy']);
-
-
-gulp.task('dev', ['sass', 'minify-css', 'minify-js'], function () {
-  gulp.watch('scss/*.scss', ['sass']);
-  gulp.watch('css/*.css', ['minify-css']);
-  gulp.watch('js/*.js', ['minify-js']);
+gulp.task('default', ['minify-css', 'minify-js'], function () {
+  gulp.watch('static/scss/**/*.scss', ['minify-css']);
+  gulp.watch('static/js/**/*.js', ['minify-js']);
 });
