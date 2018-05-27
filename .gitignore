@@ -1,5 +1,5 @@
+.vscode/
 blog.sock
-/blog/settings.py
 *.egg-info
 *.pot
 *.py[co]
