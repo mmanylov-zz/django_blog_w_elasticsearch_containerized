@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 import markdown 
-#from .search import PostIndex
+from .search import PostIndex
 
 
 class PublishedManager(models.Manager):
@@ -61,6 +61,8 @@ class Post(models.Model):
             title=self.title,
             text=self.body,
             excerpt=self.excerpt,
+            slug=self.slug,
+            minutes_to_read=self.minutes_to_read,
         )
         obj.save()
         return obj.to_dict(include_meta=True)

@@ -1,7 +1,7 @@
 from elasticsearch_dsl.connections import connections
 from elasticsearch.helpers import bulk
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import DocType, Text, Date, Search
+from elasticsearch_dsl import DocType, Text, Date, Search, Short
 from elasticsearch_dsl.query import MultiMatch
 from . import models
 
@@ -10,10 +10,11 @@ connections.create_connection()
 class PostIndex(DocType):
     posted_date = Date()
     title = Text()
-    text = Text()
+    body = Text()
     excerpt = Text()
     slug = Text()
-
+    minutes_to_read = Short()
+    
     class Meta:
         index = 'post-index'
 
