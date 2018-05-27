@@ -38,6 +38,7 @@ class SearchView(View):
         return render(request, 'post/search.html', {
             'posts': hits,
             'message': message,
+            'query': query
         })
 
 
