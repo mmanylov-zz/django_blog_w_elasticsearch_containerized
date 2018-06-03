@@ -35,3 +35,17 @@
 .btn-xl {
   padding: 15px 30px;
 }
+
+.rounded {
+  border-radius: 1rem!important;
+}
+
+.pagination .page-item:first-child .page-link {
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+}
+
+.pagination .page-item:last-child .page-link { 
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}

@@ -81,7 +81,7 @@
     }
     .post {
         background-color: white;
-        border-radius: 2px;
+        border-radius: 1rem;
         overflow: hidden;
         margin-bottom: 1rem;
         display: flex;
@@ -114,7 +114,6 @@
     .post {
         display: block;
         margin-bottom: 0;
-        margin-top: 4rem;
         &-image {
             display: block;
         }
@@ -179,16 +178,22 @@ pre[class*="language-"] {
 }
 
 #search_bar {
-    margin: 1rem auto 0;
+    margin: 1rem auto;
     width: 80%;
+
     input[type=text] {
-        width: 130px;
-        -webkit-transition: width 0.4s ease-in-out;
-        transition: width 0.4s ease-in-out;
-    }
-    
-    /* When the input field gets focus, change its width to 100% */
-    input[type=text]:focus {
+        border-radius: 0.75rem;
         width: 100%;
     }
+
+    // input[type=text] {
+    //     width: 130px;
+    //     -webkit-transition: width 0.4s ease-in-out;
+    //     transition: width 0.4s ease-in-out;
+    // }
+    
+    // /* When the input field gets focus, change its width to 100% */
+    // input[type=text]:focus {
+    //     width: 100%;
+    // }
 }

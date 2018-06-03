@@ -5,6 +5,12 @@
 {% block content %}
 <div id="content" class="page-index">
 
+    <div id="search_bar">
+        <form class="form-inline mt-2 mt-md-0 search-form" action="/search">
+            <input name="q" class="search-form-input form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" value="{{ query }}">
+        </form>
+    </div>
+
   {% for post in posts %}
 
   <a class="post-link" href="{% url 'post:post' post.slug %}">
@@ -21,6 +27,7 @@
         <h2 class="post-title">{{ post.title }}</h2>
         <div class="post-meta">
           <span class="post-meta-date">{{ post.published_at|date:"M, d Y" }}</span>
+          <span class="post-meta-date">{{ post.published_at }}</span>
           <span class="post-meta-time-to-read">{{ post.minutes_to_read }} min read</span>
         </div>
         <div class="post-excerpt">{{ post.excerpt }}</div>
