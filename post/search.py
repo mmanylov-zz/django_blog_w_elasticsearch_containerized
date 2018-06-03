@@ -5,10 +5,12 @@ from elasticsearch_dsl import DocType, Text, Date, Search, Short
 from elasticsearch_dsl.query import MultiMatch
 from . import models
 
+ES_INDEX_NAME = 'blog-post-index'
+
 connections.create_connection()
 
 class PostIndex(DocType):
-    posted_date = Date()
+    published_at = Date()
     title = Text()
     body = Text()
     excerpt = Text()
@@ -16,7 +18,7 @@ class PostIndex(DocType):
     minutes_to_read = Short()
     
     class Meta:
-        index = 'post-index'
+        index = ES_INDEX_NAME
 
 
 def bulk_indexing():
@@ -32,3 +34,7 @@ def search(query):
     s = s.query("multi_match", query=query, fields=['title', 'text', 'excerpt'])
     response = s.execute()
     return response
+
+def drop_index():
+    es = Elasticsearch()
+    es.indices.delete(index=ES_INDEX_NAME, ignore=[400, 404])

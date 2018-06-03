@@ -57,7 +57,7 @@ class Post(models.Model):
     def indexing(self):
         obj = PostIndex(
             meta={'id': self.id},
-            posted_date=self.published_at,
+            published_at=self.published_at,
             title=self.title,
             text=self.body,
             excerpt=self.excerpt,
