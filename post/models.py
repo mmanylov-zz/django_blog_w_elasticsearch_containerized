@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 import markdown 
 from .search import PostIndex
+import dateutil.parser
 
 
 class PublishedManager(models.Manager):
@@ -57,7 +58,7 @@ class Post(models.Model):
     def indexing(self):
         obj = PostIndex(
             meta={'id': self.id},
-            published_at=self.published_at,
+            published_at=self.published_at.strftime("%b, %d %Y"),
             title=self.title,
             text=self.body,
             excerpt=self.excerpt,

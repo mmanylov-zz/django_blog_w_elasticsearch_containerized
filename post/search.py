@@ -10,7 +10,7 @@ ES_INDEX_NAME = 'blog-post-index'
 connections.create_connection()
 
 class PostIndex(DocType):
-    published_at = Date()
+    published_at = Text()
     title = Text()
     body = Text()
     excerpt = Text()
