@@ -2,7 +2,7 @@
 
 This project is a single user blog app written in python 3.6 using Django, Gunicorn with Nginx, Elasticsearch and React.
 
-## Deployment
+# Deployment
 
 Below is a set of instructions to deploy the project.
 
@@ -12,18 +12,18 @@ Elasticsearch installation and configuration process is described in section **I
 
 React installation and configuration process is described in section **Install and Configure React**.
 
-### Prerequisites
+## Prerequisites
 
 In order to complete this guide, you should have a fresh Ubuntu 18.04 server instance with a non-root user with sudo privileges configured. You can learn how to set this up by running through our [initial server setup guide](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04).
 
-### First Install Python 3
+## First Install Python 3
 
 `
 sudo apt-get update
 sudo apt-get install python3-pip python3-venv python3-dev libpq-dev postgresql postgresql-contrib nginx
 `
 
-### Create a Python Virtual Environment for your Project
+## Create a Python Virtual Environment for your Project
 
 I prefer to use native python3 venv utility to create venvs:
 `python3 -m venv <vevn name here>`
@@ -34,7 +34,7 @@ Before we install our project's Python requirements, we need to activate the vir
 With your virtual environment active, install all the dependencies:
 `pip install -r requirements.txt`
 
-### Create the PostgreSQL Database and User
+## Create the PostgreSQL Database and User
 
 Log into an interactive Postgres session by typing:
 `sudo -u postgres psql`
@@ -60,7 +60,7 @@ Now, we can give our new user access to administer our new database:
 When you are finished, exit out of the PostgreSQL prompt by `CTRL+d` or typing `\q`.
 
 
-### Rsstore Development Database And Test the Setup
+## Rsstore Development Database And Test the Setup
 
 Run the following command from the **dump** directory:
 `psql -U bloguser -h localhost -W blog < 2018-05-22.sql`
@@ -72,14 +72,101 @@ Project settings are in blog/settings.py file.
 There can be some new migrations that were published by django maintaners team so you should run the following command before running the app:
 `python manage.py migrate`
 
-### Run Development Server
+## Run Development Server
 
 Anyway, if you deploy for development needs you can try run in your project directory
 `python manage.py runserver`
-and the sc	
-Set the minimum and maximum heap size to 4000 MB.ript will tell you that there are some unaplied migrations.
+and the script will tell you that there are some unaplied migrations.
 
-### Install and Configure Elasticsearch
+## Create a Gunicorn systemd Service File
+
+Create and open a systemd service file for Gunicorn with sudo privileges in your text editor:
+```
+sudo vim /etc/systemd/system/gunicorn.service
+```
+
+Gunicorn service file template
+
+```
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=sammy
+Group=www-data
+WorkingDirectory=/home/sammy/myproject
+ExecStart=/home/sammy/myproject/myprojectenv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/sammy/myproject/myproject.sock myproject.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+```
+
+We can now start the Gunicorn service we created and enable it so that it starts at boot:
+```
+sudo systemctl start gunicorn
+sudo systemctl enable gunicorn
+```
+
+## Check for the Gunicorn Socket File
+
+Check the status of the process to find out whether it was able to start:
+```sudo systemctl status gunicorn```
+
+Next, check for the existence of the myproject.sock file within your project directory:
+```ls /home/sammy/myproject```
+
+If the systemctl status command indicated that an error occurred or if you do not find the myproject.sock file in the directory, it's an indication that Gunicorn was not able to start correctly. Check the Gunicorn process logs by typing:
+
+```sudo journalctl -u gunicorn```
+
+If you make changes to the `/etc/systemd/system/gunicorn.service` file, reload the daemon to reread the service definition and restart the Gunicorn process by typing:
+
+```
+sudo systemctl daemon-reload
+sudo systemctl restart gunicorn
+```
+
+## Configure Nginx to Proxy Pass to Gunicorn
+
+Edit the virtual host file with the following command:
+```sudo vim /etc/nginx/sites-available/myproject```
+
+Template:
+```
+server {
+    listen 80;
+    server_name server_domain_or_IP;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/sammy/myproject;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/sammy/myproject/myproject.sock;
+    }
+}
+```
+
+Create symlink for the file to make it available for nginx to read on reload:
+```sudo ln -s /etc/nginx/sites-available/myproject /etc/nginx/sites-enabled```
+
+Test your Nginx configuration for syntax errors by typing:
+```sudo nginx -t```
+
+If no errors are reported, go ahead and restart Nginx by typing:
+```sudo systemctl restart nginx```
+
+**Don't forget to open 80 and 443 ports with ufw!**
+
+Use nginx logs for debug:
+```
+sudo tail -F /var/log/nginx/error.log
+```
+
+## Install and Configure Elasticsearch
 
 Reference
 [all systems](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html)
@@ -159,8 +246,9 @@ Set the minimum and maximum heap size to 4000 MB.
 `ES_JAVA_OPTS="-Xms4000m -Xmx4000m" ./bin/elasticsearch`
 
 NOTE: when I set limits to 100m the elasticsearch ate almost 350mb of RAM on local machine.
+Reference all systems Ubuntu
 
-### Create Elasticsearch Index and Import Database Data
+## Create Elasticsearch Index and Import The Data
 
 All the needed commands are already implemented in `post/search.py` file.
 
