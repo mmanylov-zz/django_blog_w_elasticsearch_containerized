@@ -48,9 +48,9 @@ Next, create a database user for our project. Make sure to select a secure passw
 Afterwards, we'll modify a few of the connection parameters for the user we just created. This will speed up database operations so that the correct values do not have to be queried and set each time a connection is established.
 
 We are setting the default encoding to UTF-8, which Django expects. We are also setting the default transaction isolation scheme to "read committed", which blocks reads from uncommitted transactions. Lastly, we are setting the timezone. By default, our Django projects will be set to use UTC. These are all recommendations from the Django project itself:
-`ALTER ROLE myprojectuser SET client_encoding TO 'utf8';
+"ALTER ROLE myprojectuser SET client_encoding TO 'utf8';
 ALTER ROLE myprojectuser SET default_transaction_isolation TO 'read committed';
-ALTER ROLE myprojectuser SET timezone TO 'UTC';`
+ALTER ROLE myprojectuser SET timezone TO 'UTC';"
 
 Now, we can give our new user access to administer our new database:
 `GRANT ALL PRIVILEGES ON DATABASE myproject TO myprojectuser;`
