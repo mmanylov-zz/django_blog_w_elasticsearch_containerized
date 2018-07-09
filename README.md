@@ -87,14 +87,14 @@ I had to make these changes in:
 
 `/etc/elasticsearch/jvm.options`
 
-`
-# Xms represents the initial size of total heap space
-# Xmx represents the maximum size of total heap space
+
+\# Xms represents the initial size of total heap space
+\# Xmx represents the maximum size of total heap space
 
 -Xms1g 
 -Xmx1g 
-# the settings shipped with ES 5 were: -Xms2g
-# the settings shipped with ES 5 were: -Xmx2g
+\# the settings shipped with ES 5 were: -Xms2g
+\# the settings shipped with ES 5 were: -Xmx2g
 `
 
 Set the minimum and maximum heap size to 2 GB.
