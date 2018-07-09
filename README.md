@@ -82,41 +82,19 @@ Set the minimum and maximum heap size to 4000 MB.ript will tell you that there a
 ### Install and Configure Elasticsearch
 
 
-NOTICE:
-Elasticsearch needs 1Gb of RAM to start, so if you don't have so much free RAM on your machine or don't want the Elasticsearch to borrow so much system memory, you can change the Elasticsearch configuration. See [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html) from more information.
-
-I had to make these changes in:
-
-`/etc/elasticsearch/jvm.options`
-
-
-\# Xms represents the initial size of total heap space
-\# Xmx represents the maximum size of total heap space
-
--Xms1g 
--Xmx1g 
-\# the settings shipped with ES 5 were: -Xms2g
-\# the settings shipped with ES 5 were: -Xmx2g
-`
-
-Set the minimum and maximum heap size to 2 GB.
-`ES_JAVA_OPTS="-Xms2g -Xmx2g" ./bin/elasticsearch`
-	
-Set the minimum and maximum heap size to 4000 MB.
-`ES_JAVA_OPTS="-Xms4000m -Xmx4000m" ./bin/elasticsearch`
-
-
 Reference
 [all systems](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html)
 [Ubuntu](https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html)
 
 Download and install
 
+The Debian package for Elasticsearch v6.3.1 can be downloaded from the website and installed as follows:
+
 `
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.3.deb
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.3.deb.sha512
-shasum -a 512 -c elasticsearch-6.2.3.deb.sha512 
-sudo dpkg -i elasticsearch-6.2.3.deb
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.1.deb
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.1.deb.sha512
+shasum -a 512 -c elasticsearch-6.3.1.deb.sha512 
+sudo dpkg -i elasticsearch-6.3.1.deb
 `
 
 Configure the service with systemd
@@ -136,12 +114,37 @@ Get status with
 sudo service elasticsearch status
 `
 
+ES Logs
+
 See logs in `/var/log/elasticsearch/`.
 
 Test it
 `
 curl -XGET 'localhost:9200/?pretty'
 `
+
+NOTICE:
+Elasticsearch needs 1Gb of RAM to start, so if you don't have so much free RAM on your machine or don't want the Elasticsearch to borrow so much system memory, you can change the Elasticsearch configuration. See [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html) from more information.
+
+I had to make these changes in:
+
+`/etc/elasticsearch/jvm.options`
+
+```
+\# Xms represents the initial size of total heap space
+\# Xmx represents the maximum size of total heap space
+
+-Xms1g 
+-Xmx1g 
+\# the settings shipped with ES 5 were: -Xms2g
+\# the settings shipped with ES 5 were: -Xmx2g
+```
+
+Set the minimum and maximum heap size to 2 GB.
+`ES_JAVA_OPTS="-Xms2g -Xmx2g" ./bin/elasticsearch`
+	
+Set the minimum and maximum heap size to 4000 MB.
+`ES_JAVA_OPTS="-Xms4000m -Xmx4000m" ./bin/elasticsearch`
 
 ### Create Elasticsearch Index and Import Database Data
 
