@@ -14,6 +14,17 @@ React installation and configuration process is described in section **Install a
 
 ## Prerequisites
 
+Server with **1Gb RAM** and Ubuntu 16.04 or later.
+
+When running the project system used **526Mb** of RAM (got the value with `htop`), so 600Mb could be enough.
+
+```
+free -h
+              total        used        free      shared  buff/cache   available
+Mem:           985M        511M         61M         15M        412M        302M
+Swap:            0B          0B          0B
+```
+
 In order to complete this guide, you should have a fresh Ubuntu 18.04 server instance with a non-root user with sudo privileges configured. You can learn how to set this up by running through our [initial server setup guide](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04).
 
 ## First Install Python 3
