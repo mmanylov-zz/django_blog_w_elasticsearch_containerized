@@ -81,29 +81,41 @@ Set the minimum and maximum heap size to 4000 MB.ript will tell you that there a
 
 ### Install and Configure Elasticsearch
 
-
 Reference
 [all systems](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html)
 [Ubuntu](https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html)
 
-Download and install
+
+Elasticsearch requires Java 8 or later.
+
+Installing Java
+
+```
+sudo apt-get update
+sudo apt-get install default-jre
+```
+
+
+Download and install ES
 
 The Debian package for Elasticsearch v6.3.1 can be downloaded from the website and installed as follows:
 
-`
+```
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.1.deb
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.1.deb.sha512
 shasum -a 512 -c elasticsearch-6.3.1.deb.sha512 
 sudo dpkg -i elasticsearch-6.3.1.deb
-`
+```
 
-Configure the service with systemd
+
+
+To configure Elasticsearch to start automatically when the system boots up, run the following commands:
 `
 sudo /bin/systemctl daemon-reload
 sudo /bin/systemctl enable elasticsearch.service
 `
 
-Run the service
+Elasticsearch can be started and stopped as follows:
 `
 sudo service elasticsearch start
 sudo service elasticsearch stop
@@ -145,6 +157,8 @@ Set the minimum and maximum heap size to 2 GB.
 	
 Set the minimum and maximum heap size to 4000 MB.
 `ES_JAVA_OPTS="-Xms4000m -Xmx4000m" ./bin/elasticsearch`
+
+NOTE: when I set limits to 100m the elasticsearch ate almost 350mb of RAM on local machine.
 
 ### Create Elasticsearch Index and Import Database Data
 
