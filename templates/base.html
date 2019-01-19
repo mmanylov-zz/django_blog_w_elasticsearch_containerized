@@ -46,37 +46,57 @@
     <div id="layout">
         <div id="sidebar">
             <div class="sidebar-info">
-                    <div class="text-center">
-                <a href="/">
-                        <img src="{% static 'img/avatar.jpg' %}" class="rounded" style="max-width: 12rem; margin:  2rem 0;" alt="Maksim's face">
+                <div class="text-center">
+                    <a href="/">
+                        <img src="{% static 'img/avatar.jpg' %}" class="rounded" style="max-width: 12rem; margin:  2rem 0;"
+                            alt="Maksim's face">
                         <h1>Maksim Manylow</h1>
-</a>
-                        <p><a target="_blank" href="https://github.com/maksimmanylow"><img class="github-logo" src="/static/img/GitHub_Logo_White.png" alt=""></a></p>
-<a href="http://codeforces.com/profile/maksman" alt="codeforces account">Codeforces account</a>                    
-</div>
+                    </a>
+                    <div>
+                        <a 
+                            target="_blank" 
+                            href="https://github.com/maksimmanylow">
+                            <img 
+                                class="github-logo" 
+                                src="/static/img/GitHub_Logo_White.png"
+                                alt="">
+                        </a>
+                    </div>
+                    <div>
+                        <a 
+                            target="_blank" 
+                            href="http://codeforces.com/profile/maksman">
+                            <img 
+                                class="github-logo" 
+                                src="/static/img/codeforces-logo-with-telegram.png"
+                                alt="Codeforces account">
+                        </a>
+                    </div>
+                        <a href="http://codeforces.com/profile/maksman" alt="codeforces account">Codeforces account</a>
+                    </div>
+                </div>
             </div>
+            <div id="main" class="bg-dark">
+                {% block content %} {% block pager %}{% endblock %} {% endblock %}
+            </div>
+
         </div>
-        <div id="main" class="bg-dark">
-            {% block content %} {% block pager %}{% endblock %} {% endblock %}
-        </div>
 
-    </div>
+        {% block javascript %}
+        <!-- Bootstrap core JavaScript -->
+        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
+        <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+        <!-- Plugin JavaScript -->
+        <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+        <script src="{% static 'vendor/scrollreveal/scrollreveal.min.js' %}"></script>
+        <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+        <script src="{% static 'vendor/aos/aos.js' %}"></script>
+        <script src="{% static 'vendor/prismjs/prism.js' %}"></script>
+        <!-- Custom scripts for this template -->
+        <script src="{% static 'js/main.min.js' %}"></script>
 
-    {% block javascript %}
-    <!-- Bootstrap core JavaScript -->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-    <!-- Plugin JavaScript -->
-    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-    <script src="{% static 'vendor/scrollreveal/scrollreveal.min.js' %}"></script>
-    <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
-    <script src="{% static 'vendor/aos/aos.js' %}"></script>
-    <script src="{% static 'vendor/prismjs/prism.js' %}"></script>
-    <!-- Custom scripts for this template -->
-    <script src="{% static 'js/main.min.js' %}"></script>
-
-    {% endblock %}
+        {% endblock %}
 </body>
 
 </html>
