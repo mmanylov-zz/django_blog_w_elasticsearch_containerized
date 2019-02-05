@@ -3,6 +3,7 @@ from .models import Post
 from .search import ES_INDEX_NAME
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl.connections import connections
+from django.urls import reverse
 
 connections.create_connection()
 
@@ -35,3 +36,32 @@ class PostModelTest(TestCase):
                 es_and_db_posts_titles_match = False
         self.assertTrue(es_and_db_posts_titles_match,
                         "ES and DB posts titles DO NOT match")
+
+
+class PostIndexViewTests(TestCase):
+    def test_no_posts(self):
+        """
+        If no posts are published, an appropriate message is displayed.
+        """
+        response = self.client.get(reverse('post:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Nothing is published yet.")
+        self.assertQuerysetEqual(response.context['posts'], [], msg="Bad context.")
+
+    def test_search_nothing_found(self):
+        """
+        If a search is performed and no posts are published, an appropriate message is displayed.
+        """
+        response = self.client.get(reverse('post:search'), {'q': 'gobbledygook'})
+        self.assertEqual(response.status_code, 200, "Wrong response code.")
+        self.assertContains(response, "Nothing found.")
+        self.assertQuerysetEqual(response.context['posts'], [], msg="Bad context.")
+
+    def test_search_empty_string(self):
+        """
+        If a search is performed with empty q get param, an appropriate message is displayed.
+        """
+        response = self.client.get(reverse('post:search'), {'q': ''})
+        self.assertEqual(response.status_code, 200, "Wrong response code.")
+        self.assertContains(response, "Nothing found.")
+        self.assertQuerysetEqual(response.context['posts'], [], msg="Bad context.")
