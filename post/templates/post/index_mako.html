@@ -1,0 +1,93 @@
+<%inherit file="/base_mako.html"/>
+<%block name="title">
+    IT blog of Maksim Manylow, web-dev
+</%block>
+<%block name="description">
+    Articles about linux server administration, web development and other things
+</%block>
+
+<%block name="content">
+    <div id="content" class="page-index">
+
+        <div id="search_bar">
+            <form class="form-inline mt-2 mt-md-0 search-form" action="/search">
+                <input name="q" class="search-form-input form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" value="${query}">
+            </form>
+        </div>
+
+        % if len(posts):
+              % for post in posts:
+
+                  <a class="post-link" href="/post/${ post.slug }.html">
+                    <article class="post">
+                      <!--
+                      <div class="post-image">
+                        <svg viewBox="0 0 18 7">
+                          <path fill="#CB3837" d="M0,0v6h5v1h4v-1h9v-6"></path>
+                          <path fill="#FFF" d="M1,1v4h2v-3h1v3h1v-4h1v5h2v-4h1v2h-1v1h2v-4h1v4h2v-3h1v3h1v-3h1v3h1v-4"></path>
+                        </svg>
+                      </div>
+                    -->
+                      <div class="post-info">
+                        <h2 class="post-title">${post.title}</h2>
+                        <div class="post-meta">
+                          <span class="post-meta-date">${post.published_at.strftime("M, d Y")}</span>
+                          <span class="post-meta-time-to-read">${post.minutes_to_read} min read</span>
+                        </div>
+                        <div class="post-excerpt">${post.excerpt}</div>
+                        <div class="post-tags"></div>
+                      </div>
+                    </article>
+                  </a>
+
+            % endfor
+        % else:
+            <p>Nothing is published yet.</p>
+        % endif
+
+      % if posts.paginator.num_pages > 1:
+      <%block name="pager">
+
+          <nav aria-label="pagination">
+              <ul class="pagination justify-content-center">
+
+              % if posts.has_previous:
+                <li class="page-item">
+                  <a class="page-link" href="?page=${posts.previous_page_number}">Previous</a>
+                </li>
+              % else:
+                <li class="page-item disabled">
+                  <a class="page-link">Previous</a>
+                </li>
+              % endif
+
+              % for i in posts.paginator.page_range:
+
+                % if posts.number == i:
+                  <li class="page-item active"><a class="page-link">${i}</a></li>
+                % else:
+                  <li class="page-item"><a class="page-link" href="?page=${i}">${i}</a></li>
+                % endif
+
+              % endfor
+
+
+              % if posts.has_next:
+                <li class="page-item">
+                  <a class="page-link" href="?page=${ posts.next_page_number }">Next</a>
+                </li>
+              % else:
+                <li class="page-item disabled">
+                  <a class="page-link">Next</a>
+                </li>
+              % endif
+
+
+              </ul>
+            </nav>
+
+        </%block>
+
+      % endif
+    </div>
+</%block>

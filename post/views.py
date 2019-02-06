@@ -4,7 +4,11 @@ from django.views import View
 from .models import Post, ViewCount
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .search import search
-
+# including Mako template engine dependencies
+from mako.template import Template
+from mako.lookup import TemplateLookup
+from blog.settings import TEMPLATES, BASE_DIR
+import os
 
 class IndexView(View):
     def get(self, request):
@@ -21,7 +25,16 @@ class IndexView(View):
             # If page is out of range (e.g. 9999), deliver last page of results.
             posts = paginator.page(paginator.num_pages)
 
-        return render(request, 'post/index.html', {'posts': posts})
+        template_dirs = [os.path.join(BASE_DIR, 'post/templates/post'), os.path.join(BASE_DIR, 'templates')]
+        page_lookup = TemplateLookup(directories=template_dirs)
+        page_tempalte = Template(filename=os.path.join(BASE_DIR, 'post/templates/post/index_mako.html'), lookup=page_lookup)
+        context = dict(
+            posts=posts,
+            query=''
+        )
+
+        return HttpResponse(page_tempalte.render(**context))
+        #return render(request, 'post/index.html', {'posts': posts})
 
 
 class SearchView(View):
