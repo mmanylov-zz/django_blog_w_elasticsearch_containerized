@@ -10,10 +10,12 @@ from mako.lookup import TemplateLookup
 from blog.settings import TEMPLATES, BASE_DIR
 import os
 
-class IndexView(View):
+PAGE_SIZE = 8
+
+class IndexView(View): 
     def get(self, request):
         posts = Post.published.all()
-        paginator = Paginator(posts, 3)
+        paginator = Paginator(posts, PAGE_SIZE)
         page = request.GET.get('page')
 
         try:
