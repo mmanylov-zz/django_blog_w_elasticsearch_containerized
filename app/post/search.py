@@ -4,10 +4,12 @@ from elasticsearch import Elasticsearch
 from elasticsearch_dsl import DocType, Text, Date, Search, Short
 from elasticsearch_dsl.query import MultiMatch
 from . import models
+from blog.settings import ES_INDEX_NAME, ES_HOST_NAME, ES_PORT
 
-ES_INDEX_NAME = 'blog-post-index'
+ES_SOCK = {"host": ES_HOST_NAME, "port": int(ES_PORT)}
 
-connections.create_connection()
+#connections.create_connection(**ES_SOCK)
+
 
 class PostIndex(DocType):
     published_at = Text()
@@ -23,11 +25,12 @@ class PostIndex(DocType):
 
 def bulk_indexing():
     PostIndex.init()
-    client = Elasticsearch()
+    client = Elasticsearch(hosts=[ES_SOCK])
     bulk(client=client, actions=(b.indexing() for b in models.Post.objects.all().iterator()))
 
+
 def search(query):
-    client = Elasticsearch()
+    client = Elasticsearch(hosts=[ES_SOCK])
     s = Search(using=client)
     # mm= MultiMatch(query='python django', fields=['title', 'text', 'excerpt'])
     # s = Search()
@@ -35,6 +38,7 @@ def search(query):
     response = s.execute()
     return response
 
+
 def drop_index():
-    es = Elasticsearch()
+    es = Elasticsearch(hosts=[ES_SOCK])
     es.indices.delete(index=ES_INDEX_NAME, ignore=[400, 404])
