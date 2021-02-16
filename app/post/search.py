@@ -1,17 +1,17 @@
 from elasticsearch_dsl.connections import connections
 from elasticsearch.helpers import bulk
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import DocType, Text, Date, Search, Short
-from elasticsearch_dsl.query import MultiMatch
+from elasticsearch_dsl import DocType, Text, Search, Short#, Date
+# from elasticsearch_dsl.query import MultiMatch
 from . import models
 from blog.settings import ES_INDEX_NAME, ES_HOST_NAME, ES_PORT
 
 ES_SOCK = {"host": ES_HOST_NAME, "port": int(ES_PORT)}
 
-#connections.create_connection(**ES_SOCK)
+connections.create_connection(**ES_SOCK)
 
 
-class PostIndex(DocType):
+class PostType(DocType):
     published_at = Text()
     title = Text()
     body = Text()
@@ -24,7 +24,7 @@ class PostIndex(DocType):
 
 
 def bulk_indexing():
-    PostIndex.init()
+    PostType.init()
     client = Elasticsearch(hosts=[ES_SOCK])
     bulk(client=client, actions=(b.indexing() for b in models.Post.objects.all().iterator()))
 

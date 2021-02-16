@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 import markdown 
-from .search import PostIndex
+from .search import PostType
 import dateutil.parser
 
 
@@ -56,7 +56,7 @@ class Post(models.Model):
         return self.title
 
     def indexing(self):
-        obj = PostIndex(
+        obj = PostType(
             meta={'id': self.id},
             published_at=self.published_at.strftime("%b, %d %Y"),
             title=self.title,
@@ -67,6 +67,7 @@ class Post(models.Model):
         )
         obj.save()
         return obj.to_dict(include_meta=True)
+
 
 class ViewCount(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
