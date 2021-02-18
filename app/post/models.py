@@ -1,8 +1,9 @@
 from django.db import models
 from django.utils import timezone
 import markdown 
-from .search import PostType
-import dateutil.parser
+from elasticsearch_dsl import Document, Text, Short
+
+from blog.settings import ES_INDEX_NAME
 
 
 class PublishedManager(models.Manager):
@@ -67,6 +68,18 @@ class Post(models.Model):
         )
         obj.save()
         return obj.to_dict(include_meta=True)
+
+
+class PostType(Document):
+    published_at = Text()
+    title = Text()
+    body = Text()
+    excerpt = Text()
+    slug = Text()
+    minutes_to_read = Short()
+
+    class Index:
+        name = ES_INDEX_NAME
 
 
 class ViewCount(models.Model):
