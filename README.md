@@ -4,19 +4,19 @@
 
 To build dev containers run
 ```shell
-docker-compose -f docker-compose.yml up -d --build
-docker-compose -f docker-compose.yml exec web python manage.py migrate --noinput
-docker-compose -f docker-compose.yml exec web python manage.py collectstatic --no-input --clear
+docker-compose up -d --build
+docker-compose exec web python manage.py migrate --noinput
+docker-compose exec web python manage.py collectstatic --no-input --clear
 ```
 
 To destroy dev containers
 ```shell
-docker-compose -f docker-compose.yml down -v
+docker-compose down -v
 ```
 
 To see logs
 ```shell
-docker-compose -f docker-compose.yml logs -f
+docker-compose logs -f
 ```
 
 To see logs of a specific container
@@ -32,7 +32,7 @@ docker ps -a
 For initialization (database creation and applying migrations; creation of es index and bulk indexing of posts from the db)
 ```shell
 cat dump/2018-05-22.sql | docker exec -i django_blog_real_db_1 psql -U bloguser -W blog
-docker-compose -f docker-compose.yml exec web python manage.py shell
+docker-compose exec web python manage.py shell
 >>> from post.search import init
 >>> init()
 ```
@@ -86,7 +86,7 @@ cd blog
 
 5. Build and run the containers
 ```shell
-docker-compose -f docker-compose.yml up -d --build
+docker-compose up -d --build
 ```
 
 6. Migrate the database
@@ -96,7 +96,7 @@ cat dump/2018-05-22.sql | docker exec -i django_blog_real_db_1 psql -U bloguser 
 
 7. Create the 'blog' index in Elasticsearch and index posts with init()
 ```shell
-docker-compose -f docker-compose.yml exec web python manage.py shell
+docker-compose exec web python manage.py shell
 >>> from post.search import init
 >>> init()
 ```
