@@ -1,5 +1,12 @@
 # Instructions
 
+## Reuirements
+
+OS: Ubuntu 20.04
+RAM: ~500MB
+
+The projects reuires around 500MB of RAM, so 1GB RAM Ubuntu droplet (vps) on Digitalocean fits in.
+
 ## Installation for dev server
 
 1. Install docker
