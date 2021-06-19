@@ -53,6 +53,7 @@
     "gulp-util": "^3.0.8",
     "imagemin-jpegtran": "^5.0.2",
     "imagemin-optipng": "^5.2.1",
-    "jshint": "^2.9.5"
+    "jshint": "^2.9.5",
+    "natives": "^1.1.6"
   }
 }

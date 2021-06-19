@@ -47,7 +47,7 @@ docker-compose up -d --build
 
 6. Migrate the database
 ```shell
-cat dump/2018-05-22.sql | docker exec -i django_blog_real_db_1 psql -U bloguser -W blog
+cat dump/2018-05-22.sql | docker-compose exec -T db psql -U bloguser -W blog
 ```
 
 7. Create the 'blog' index in Elasticsearch and index posts with init()
