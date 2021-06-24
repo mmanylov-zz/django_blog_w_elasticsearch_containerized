@@ -1,3 +1,5 @@
+See the dev server at http://maxmanylov.ru/
+
 # Instructions
 
 ## Requirements
